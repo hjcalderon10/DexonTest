@@ -1,46 +1,29 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const fs = require('fs')
+const http = require('http')
+const express = require('express')
+const path = require('path')
+const bodyParser = require('body-parser')
+const PORT = 4000
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const app = express()
 
-var app = express();
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/static', express.static(path.join(__dirname, 'static/')))
+app.set('port', PORT)
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.use('/', express.static('../frontend-test/build'))
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+const staticServer = http.createServer(app)
+staticServer.listen(PORT)
 
-app.use('/', index);
-app.use('/users', users);
+const routes = fs.readdirSync('./routes')
+routes.forEach(routeStr => {
+  let routeName = routeStr.slice(0, -3)
+  let route = require('./routes/' + routeName)
+  app.use('/api/' + routeName, route)
+})
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+staticServer.on('listening', () => {
+  console.log(`server is running on port ${PORT}`)
+})
