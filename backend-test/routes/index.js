@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/', (req, res) => {
   const { input } = req.body
   const results = Phoneword.getValues(input.split(""))
-  res.json({ data: results })
+  res.json({ number: results.length, data: results })
 })
 
 module.exports = router;
