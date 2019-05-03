@@ -44,7 +44,8 @@ phoneword.getValues = ( input ) => {
 auxFunction = (length, lists, input, previous, answer) => {
   const [preLoad, offset] = verifyCache([...input], [])
   if(preLoad !== undefined){
-    const newPrevious = input.filter(element => !offset.includes(element))
+    const newPreviousNumber = input.length - offset.length
+    const newPrevious = input.slice(0, newPreviousNumber)
     length = offset.length
     input = offset
     lists = input.map(element => numbers[element])

@@ -1,0 +1,14 @@
+.title{
+	text-align: center;
+	font-family: 'Futura PT', sans-serif;
+}
+
+.image{
+	max-width: 25%;
+	height: auto;
+	float: right;
+}
+
+.app{
+	padding-top: 3%;
+}
