@@ -1,14 +1,28 @@
 .title{
 	text-align: center;
 	font-family: 'Futura PT', sans-serif;
+	padding-bottom: 3%;
 }
 
 .image{
-	max-width: 25%;
+	max-width: 100%;
 	height: auto;
 	float: right;
 }
 
 .app{
 	padding-top: 3%;
+}
+
+input{
+	height: 15%;
+}
+
+.realquery{
+	padding-top: 2%;
+	color: rgb(119,136,153);
+}
+
+.results{
+	padding-top: 1%;
 }
