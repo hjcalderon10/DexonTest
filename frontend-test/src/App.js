@@ -29,6 +29,9 @@ function App() {
           setRecord(results)
         })
     }
+    else{
+      setRecord({})
+    }
   }, [value])
 
   //función de https://stackoverflow.com/questions/3665115/how-to-create-a-file-in-memory-for-user-to-download-but-not-through-server

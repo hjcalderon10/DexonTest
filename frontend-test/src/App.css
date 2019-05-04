@@ -26,3 +26,12 @@ input{
 .results{
 	padding-top: 1%;
 }
+
+.description{
+	text-decoration: underline;
+}
+
+.result{
+	font-weight: bold;
+	font-size: 145%;
+}
