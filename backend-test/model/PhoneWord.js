@@ -47,7 +47,7 @@ phoneword.getValues = ( input ) => {
 }
 
 /*Función encargada del procesamiento recursivo. Implementación con optimización de Tail Recursion.
-  NodeJS rompe el heap con 12 caracteres de entrada (alrededor de 3^12 operaciones).
+  NodeJS rompe el heap con 12 caracteres de input (alrededor de 3^12 operaciones).
   Parece que NodeJS no implementa completamente la optimización por Tail Recursion.
   Esto hace que sea más efectivo una solución iterativa.*/
 auxFunction = (length, lists, input, previous, answer) => {
