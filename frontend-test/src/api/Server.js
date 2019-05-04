@@ -1,6 +1,6 @@
 export const Server = {}
 
-const server = 'http://localhost:4000/api'
+const server = '/api'
 const axios = require('axios')
 
 Server.searchResults = (value) => {
