@@ -1,5 +1,6 @@
 const phoneword = {}
 
+//Posibles números
 const numbers = {
   2: ['a','b','c'],
   3: ['d', 'e', 'f'],
@@ -14,6 +15,7 @@ const numbers = {
 
 const cache = {}
 
+//Optimización para no recalcular durante ejecución consultas pre-hechas
 const verifyCache = (number, offset) => {
   if(number.length === 0){
     return [undefined, offset]
@@ -27,13 +29,16 @@ const verifyCache = (number, offset) => {
     return [actual, offset]
 }
 
+//Disminución de listas anidadas
 const undergrade = (list) => [].concat.apply([], list)
 
+//Función para acoplar dos cadenas de caracteres.
 const reducer = (accumulator, current) =>
   undergrade(accumulator.map(elementBase => current.map(elementCurrent => undergrade([ ...elementBase, elementCurrent ]))))
 
 const cartesianProduct = (lists) => lists.reduce(reducer, [[]])
 
+//Función principal. Recibe un input de forma [2,3,2,7...]
 phoneword.getValues = ( input ) => {
   const length = input.length
   let lists = [...input]
@@ -41,6 +46,10 @@ phoneword.getValues = ( input ) => {
   return auxFunction(length, lists, input)
 }
 
+/*Función encargada del procesamiento recursivo. Implementación con optimización de Tail Recursion.
+  NodeJS rompe el heap con 12 caracteres de entrada (alrededor de 3^12 operaciones).
+  Parece que NodeJS no implementa completamente la optimización por Tail Recursion.
+  Esto hace que sea más efectivo una solución iterativa.*/
 auxFunction = (length, lists, input, previous, answer) => {
   const [preLoad, offset] = verifyCache([...input], [])
   if(preLoad !== undefined){
